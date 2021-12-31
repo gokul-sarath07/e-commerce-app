@@ -1,12 +1,15 @@
 package com.ecommerce.authentication.service;
 
 import com.ecommerce.authentication.dao.UserDAO;
+import com.ecommerce.authentication.dto.UserDTO;
+import com.ecommerce.authentication.dto.UserDetailsDTO;
 import com.ecommerce.authentication.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -35,5 +38,20 @@ public class UserService {
 
     public void deleteUser(User user) {
         userDAO.delete(user);
+    }
+
+    public UserDetailsDTO getUserDetails(UserDetailsDTO usernameDTO) {
+        usernameDTO.getUserMap().forEach((k, v) -> {
+            User user = userDAO.findByUsername(k).get();
+
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUsername(user.getUsername());
+            userDTO.setName(user.getName());
+            userDTO.setAddress(user.getAddress());
+
+            usernameDTO.getUserMap().put(k, userDTO);
+        });
+
+        return usernameDTO;
     }
 }

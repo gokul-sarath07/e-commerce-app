@@ -30,6 +30,9 @@ public class CatalogService {
         this.webClientBuilder = webClientBuilder;
     }
 
+    public List<Catalog> getAllCatalog() {
+        return catalogDAO.findAll();
+    }
 
     public void addProductToCatalog(CatalogDTO catalogDTO) {
         String username = getUsernameOfLoggedInUser();

@@ -1,5 +1,6 @@
 package com.ecommerce.authentication.controller;
 
+import com.ecommerce.authentication.dto.UserDetailsDTO;
 import com.ecommerce.authentication.model.Error;
 import com.ecommerce.authentication.model.User;
 import com.ecommerce.authentication.service.UserService;
@@ -38,5 +39,12 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@RequestBody User user) {
         userService.deleteUser(user);
         return new ResponseEntity<>("User has been deleted.", HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDetailsDTO> getUserDetailsWithUsername(@RequestBody UserDetailsDTO usernameDTO) {
+        UserDetailsDTO userDetailsDTO = userService.getUserDetails(usernameDTO);
+
+        return new ResponseEntity<>(userDetailsDTO, HttpStatus.OK);
     }
 }

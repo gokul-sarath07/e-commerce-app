@@ -1,6 +1,7 @@
 package com.ecommerce.catalog.controller;
 
 import com.ecommerce.catalog.dto.CatalogDTO;
+import com.ecommerce.catalog.dto.CatalogWebClientObject;
 import com.ecommerce.catalog.exception.CatalogException;
 import com.ecommerce.catalog.model.Catalog;
 import com.ecommerce.catalog.model.Error;
@@ -12,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,16 @@ public class CatalogController {
         } catch(CatalogException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllCatalog() {
+        List<Catalog> catalogList = catalogService.getAllCatalog();
+        if (catalogList.isEmpty()) {
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(new CatalogWebClientObject(catalogList), HttpStatus.OK);
     }
 
     @GetMapping("/user/{username}")
