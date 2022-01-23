@@ -40,10 +40,15 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        username = ((UserDetails) principal).getUsername();
+        try {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            username = ((UserDetails) principal).getUsername();
 
-        return new ResponseEntity<>(username + " signed-in successfully.", HttpStatus.OK);
+            return new ResponseEntity<>(username + " signed-in successfully.", HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/current-user")

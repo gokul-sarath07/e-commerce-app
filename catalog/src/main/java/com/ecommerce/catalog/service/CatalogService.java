@@ -53,7 +53,7 @@ public class CatalogService {
     @Async
     private String getUsernameOfLoggedInUser() {
         return webClientBuilder.get()
-                .uri("http://localhost:8080/api/auth/current-user")
+                .uri("http://authentication-app:8080/api/auth/current-user")
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
@@ -62,7 +62,7 @@ public class CatalogService {
     @Async
     private Product getProductWithId(long id) {
         return webClientBuilder.get()
-                .uri("http://localhost:8081/api/product/" + id)
+                .uri("http://product-app:8081/api/product/" + id)
                 .retrieve()
                 .bodyToMono(Product.class)
                 .block();

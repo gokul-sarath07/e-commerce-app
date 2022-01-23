@@ -38,4 +38,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                       .logoutSuccessUrl("/api/auth/logout");
     }
 
+
 }

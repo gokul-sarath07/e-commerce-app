@@ -54,7 +54,7 @@ public class OrderService {
 
     private UserDetailsDTO getUserDetails(UserDetailsDTO usernameDTO) {
         return webClient.post()
-                .uri("http://localhost:8080/api/user")
+                .uri("http://authentication-app:8080/api/user")
                 .body(Mono.just(usernameDTO), UserDetailsDTO.class)
                 .retrieve()
                 .bodyToMono(UserDetailsDTO.class)
@@ -63,7 +63,7 @@ public class OrderService {
 
     private CatalogWebClientObject getAllCatalog() {
         return webClient.get()
-                .uri("http://localhost:8082/api/catalog")
+                .uri("http://catalog-app:8082/api/catalog")
                 .retrieve()
                 .bodyToMono(CatalogWebClientObject.class)
                 .block();
